@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Notes from "./components/Notes";
 import Navbar from "./components/Navbar";
+import NoteDetail from "./components/NoteDetail.js";
+import NoteForm from "./components/NoteForm";
 
 function App() {
     const [notes, setNotes] = useState(null);
@@ -52,15 +54,26 @@ function App() {
         fetchNotes();
     }, []);
 
-    console.log({ notes });
-
     return (
         <div className="App">
             <Navbar />
             <div className="container">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/notes" element={<Notes />} />
+                    <Route
+                        path="/notes"
+                        element={
+                            <Notes notes={notes} deleteNote={deleteNote} />
+                        }
+                    />
+                    <Route
+                        path="/notes/:id"
+                        element={<NoteDetail notes={notes} />}
+                    />
+                    <Route
+                        path="/create-note"
+                        element={<NoteForm onSubmit={addNote} />}
+                    />
                 </Routes>
             </div>
         </div>
