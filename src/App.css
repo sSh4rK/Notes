@@ -11,3 +11,7 @@
   height: 100vh;
   margin-inline-start: 240px;
 }
+
+.Note-title {
+  padding: 16px;
+}
