@@ -10,8 +10,14 @@
 .Main {
   height: 100vh;
   margin-inline-start: 240px;
+  display: flex;
+  flex-direction: column;
 }
 
-.Note-title {
+.Note-link {
+  display: block;
   padding: 16px;
+  color: inherit;
+  text-decoration: inherit;
+  font-weight: bold;
 }

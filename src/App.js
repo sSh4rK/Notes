@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link, Route, Routes } from "react-router-dom";
+
 import "./App.css";
+import Note from "./components/Note/Note";
 
 function App() {
   const [notes, setNotes] = useState(null);
@@ -18,9 +21,17 @@ function App() {
     <>
       <aside className="Side">
         {notes &&
-          notes.map((note) => <div className="Note-title">{note.title}</div>)}
+          notes.map((note) => (
+            <Link to={`/notes/${note.id}`} className="Note-link">
+              {note.title}
+            </Link>
+          ))}
       </aside>
-      <main className="Main"></main>
+      <main className="Main">
+        <Routes>
+          <Route path="/notes/:id" Component={Note} />
+        </Routes>
+      </main>
     </>
   );
 }
