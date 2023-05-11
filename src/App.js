@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 import "./App.css";
 import Note from "./components/Note/Note";
@@ -7,6 +7,8 @@ import Note from "./components/Note/Note";
 function App() {
     const [notes, setNotes] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
+    const location = useLocation();
 
     const fetchNotes = async () => {
         const response = await fetch("/notes");
@@ -31,16 +33,36 @@ function App() {
         setNotes([...notes, result]);
     };
 
+    const filteredNotes = notes
+        ? notes.filter((note) => {
+              return note.title
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase());
+          })
+        : [];
+
     return (
         <>
             <aside className="Side">
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Recherche par titre"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
                 {isLoading ? (
                     "Chargement..."
-                ) : notes ? (
-                    notes.map((note) => (
+                ) : filteredNotes.length ? (
+                    filteredNotes.map((note) => (
                         <Link
                             to={`/notes/${note.id}`}
-                            className="Note-link"
+                            className={`Note-link ${
+                                location.pathname === `/notes/${note.id}`
+                                    ? "active"
+                                    : ""
+                            }`}
                             key={note.id}
                         >
                             {note.title}

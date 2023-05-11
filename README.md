@@ -27,20 +27,22 @@ Dans un dossier API, créer un fichier `db.json` avec par exemple ce contenu :
     }
   ],
   "profile": {
-    "name": "Arnaud"
+    "name": "Valentin"
   }
 }
-```
-
-Démarrage du `json-server` :
-
-```
-npx json-server --watch api/db.json --port 4000
 ```
 
 Démarrage du serveur de développement de l'application React :
 
 ```
-cd webapp
+cd react-notes-esgi-reims-2023
 npm start
+```
+
+Démarrage du json server :
+
+```
+cd react-notes-esgi-reims-2023
+cd api
+npx json-server --watch api/db.json --port 4000
 ```
